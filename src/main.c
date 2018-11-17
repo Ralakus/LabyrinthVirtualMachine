@@ -174,7 +174,7 @@ bool lab_vm_eval_op(lab_vm_t* vm, size_t opcode) {
         case LAB_VM_OP_JAL: {
 
             size_t* a    = (size_t*)lab_vec_at(&vm->stack, (++vm->ip, *(size_t*)lab_vec_at(&vm->instructions, vm->ip)));
-            size_t* dest = (size_t*)lab_vec_at(&vm->stack, (++vm->ip, *(size_t*)lab_vec_at(&vm->instructions, vm->ip)));
+            size_t* dest =                                 (++vm->ip,  (size_t*)lab_vec_at(&vm->instructions, vm->ip));
 
             vm->ip = *dest;
             return true;
@@ -186,7 +186,7 @@ bool lab_vm_eval_op(lab_vm_t* vm, size_t opcode) {
 
             size_t* a    = (size_t*)lab_vec_at(&vm->stack, (++vm->ip, *(size_t*)lab_vec_at(&vm->instructions, vm->ip)));
             size_t* b    = (size_t*)lab_vec_at(&vm->stack, (++vm->ip, *(size_t*)lab_vec_at(&vm->instructions, vm->ip)));
-            size_t* dest = (size_t*)lab_vec_at(&vm->stack, (++vm->ip, *(size_t*)lab_vec_at(&vm->instructions, vm->ip)));
+            size_t* dest =                                 (++vm->ip,  (size_t*)lab_vec_at(&vm->instructions, vm->ip));
 
             if(*a == *b) {
                 vm->ip = *dest;
@@ -200,7 +200,7 @@ bool lab_vm_eval_op(lab_vm_t* vm, size_t opcode) {
 
             size_t* a    = (size_t*)lab_vec_at(&vm->stack, (++vm->ip, *(size_t*)lab_vec_at(&vm->instructions, vm->ip)));
             size_t* b    = (size_t*)lab_vec_at(&vm->stack, (++vm->ip, *(size_t*)lab_vec_at(&vm->instructions, vm->ip)));
-            size_t* dest = (size_t*)lab_vec_at(&vm->stack, (++vm->ip, *(size_t*)lab_vec_at(&vm->instructions, vm->ip)));
+            size_t* dest =                                 (++vm->ip,  (size_t*)lab_vec_at(&vm->instructions, vm->ip));
 
             if(*a != *b) {
                 vm->ip = *dest;
@@ -214,7 +214,7 @@ bool lab_vm_eval_op(lab_vm_t* vm, size_t opcode) {
 
             size_t* a    = (size_t*)lab_vec_at(&vm->stack, (++vm->ip, *(size_t*)lab_vec_at(&vm->instructions, vm->ip)));
             size_t* b    = (size_t*)lab_vec_at(&vm->stack, (++vm->ip, *(size_t*)lab_vec_at(&vm->instructions, vm->ip)));
-            size_t* dest = (size_t*)lab_vec_at(&vm->stack, (++vm->ip, *(size_t*)lab_vec_at(&vm->instructions, vm->ip)));
+            size_t* dest =                                 (++vm->ip,  (size_t*)lab_vec_at(&vm->instructions, vm->ip));
 
             if(*a < *b) {
                 vm->ip = *dest;
@@ -228,7 +228,7 @@ bool lab_vm_eval_op(lab_vm_t* vm, size_t opcode) {
 
             size_t* a    = (size_t*)lab_vec_at(&vm->stack, (++vm->ip, *(size_t*)lab_vec_at(&vm->instructions, vm->ip)));
             size_t* b    = (size_t*)lab_vec_at(&vm->stack, (++vm->ip, *(size_t*)lab_vec_at(&vm->instructions, vm->ip)));
-            size_t* dest = (size_t*)lab_vec_at(&vm->stack, (++vm->ip, *(size_t*)lab_vec_at(&vm->instructions, vm->ip)));
+            size_t* dest =                                 (++vm->ip,  (size_t*)lab_vec_at(&vm->instructions, vm->ip));
 
             if(*a >= *b) {
                 vm->ip = *dest;
@@ -272,7 +272,7 @@ int main() {
     size_t bytecode[] = {
         LAB_VM_OP_ADDI, LAB_VM_REG_A0 * sizeof(size_t), LAB_VM_REG_ZERO * sizeof(size_t), 15, // addI a0, zero, 15
         LAB_VM_OP_ADDI, LAB_VM_REG_A1 * sizeof(size_t), LAB_VM_REG_A1   * sizeof(size_t), 1,  // addI a1, a1, 1
-        LAB_VM_OP_BLT,  LAB_VM_REG_A1 * sizeof(size_t), LAB_VM_REG_A0   * sizeof(size_t), 5,  // blt a1, a0, 5
+        LAB_VM_OP_BLT,  LAB_VM_REG_A1 * sizeof(size_t), LAB_VM_REG_A0   * sizeof(size_t), 4,  // blt a1, a0, 4
     };
 
     lab_vm_load_instructions(&vm, bytecode, sizeof(bytecode) / sizeof(size_t));
